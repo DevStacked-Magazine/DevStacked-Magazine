@@ -121,13 +121,13 @@ export default function DreamToRealitySection() {
                   <div className="flex h-14 w-14 items-center justify-center rounded-[1.15rem] border border-red-active/35 bg-red-active/10 text-red-active">
                     <member.icon size={20} strokeWidth={2} />
                   </div>
-                  <span className="rounded-full border border-white/12 bg-black/18 px-3 py-1 text-[0.68rem] font-semibold tracking-[0.22em] text-white/58 uppercase">
+                  <span className="rounded-full border border-white/12 bg-black/18 px-3 py-1 text-[0.68rem] font-semibold text-white/58 uppercase">
                     {member.accent}
                   </span>
                 </div>
 
                 <h4 className="mt-8 text-[1.7rem] font-semibold">{member.name}</h4>
-                <p className="mt-2 text-sm font-medium tracking-[0.16em] text-red-active uppercase">
+                <p className="mt-2 text-sm font-medium text-red-active uppercase">
                   {member.role}
                 </p>
                 <p className="mt-5 text-sm leading-7 text-white/72 sm:text-base">

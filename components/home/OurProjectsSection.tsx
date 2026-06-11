@@ -77,7 +77,7 @@ export default function OurProjectsSection() {
                 <div className="flex h-13 w-13 items-center justify-center rounded-[1.1rem] border border-red-active/40 bg-red-active/10 text-red-active">
                   <feature.icon className="h-5.5 w-5.5" />
                 </div>
-                <span className="rounded-full border border-white/12 bg-black/18 px-3 py-1 text-[0.7rem] font-semibold tracking-[0.22em] text-white/54 uppercase">
+                <span className="rounded-full border border-white/12 bg-black/18 px-3 py-1 text-[0.7rem] font-semibold text-white/54 uppercase">
                   {feature.accent}
                 </span>
               </div>

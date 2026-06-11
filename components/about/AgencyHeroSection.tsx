@@ -19,8 +19,8 @@ export default function AgencyHeroSection() {
           <Image src={redDots} alt="" aria-hidden className="w-full h-full" />
         </motion.div>
         <motion.span 
-          variants={variants.fadeIn}
-          className="absolute inset-0 flex items-center justify-center text-[clamp(6rem,17vw,14rem)] leading-none tracking-[0.08em] text-transparent uppercase select-none [-webkit-text-stroke:1px_rgba(255,255,255,0.18)]"
+          variants={variants.fadeInDown}
+          className="pointer-events-none absolute inset-x-0 text-[24vw] font-semibold leading-none text-white/6 sm:text-[16vw] lg:text-[15rem] left-1/2 -translate-x-1/2 top-[20%] z-0"
         >
           About
         </motion.span>
