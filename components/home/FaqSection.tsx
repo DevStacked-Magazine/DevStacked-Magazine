@@ -49,7 +49,7 @@ export default function FaqSection() {
       whileInView="visible"
       viewport={viewportConfig}
       variants={variants.staggerContainer}
-      className="my-20"
+      className="my-30"
     >
       <motion.div
         variants={variants.fadeInUp}

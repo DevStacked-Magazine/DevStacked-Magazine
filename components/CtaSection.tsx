@@ -16,7 +16,7 @@ export default function Page() {
       className="w-full h-[380px] md:h-[400px] flex my-12 p-4 lg:p-10 relative border-2 border-white/20 bg-white/5 rounded-4xl"
     >
       <div className="flex flex-col items-center justify-evenly lg:items-start gap-7">
-        <motion.h2 variants={variants.fadeInUp} className="relative text-4xl sm:text-5xl lg:text-7xl text-white w-auto text-center lg:text-left z-10">
+        <motion.h2 variants={variants.fadeInUp} className="relative text-4xl sm:text-5xl lg:text-6xl text-white w-auto text-wrap text-center lg:text-left z-10">
           Let&apos;s Build Something That Gets{" "}
           <span className="block text-red-active">You Noticed</span>
         </motion.h2>
