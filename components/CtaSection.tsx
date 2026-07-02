@@ -1,39 +1,58 @@
 "use client";
 
-import Image from "next/image";
-import heroImage from "@/public/images/home/heroImage.png";
-import EmailInput from "@/components/ui/EmailInput";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { variants, viewportConfig } from "@/lib/motion-presets";
 
-export default function Page() {
+export default function CtaSection() {
   return (
-    <motion.div 
-      initial="hidden"
-      whileInView="visible"
-      viewport={viewportConfig}
-      variants={variants.staggerContainer}
-      className="w-full h-[380px] md:h-[400px] flex my-12 p-4 lg:p-10 relative border-2 border-white/20 bg-white/5 rounded-4xl"
-    >
-      <div className="flex flex-col items-center justify-evenly lg:items-start gap-7">
-        <motion.h2 variants={variants.fadeInUp} className="relative text-4xl sm:text-5xl lg:text-7xl text-white w-auto text-center lg:text-left z-10">
-          Let&apos;s Build Something That Gets{" "}
-          <span className="block text-red-active">You Noticed</span>
-        </motion.h2>
-        <motion.p variants={variants.fadeInUp} className="text-gray-300 text-sm sm:w-[60%] text-center text-wrap lg:text-left">
-          Got a project in mind? Drop your email and we&apos;ll get back to you within 24 hours.
-        </motion.p>
-        <motion.div variants={variants.fadeInUp} className="w-full sm:3/4 flex justify-center lg:justify-start">
-          <EmailInput className="w-full rounded-full" />
+    <section className="relative section-pad overflow-hidden">
+      <div className="mx-auto max-w-7xl px-5 sm:px-12 lg:px-20">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-background-elevated px-8 py-16 sm:px-14 sm:py-20 lg:px-20 lg:py-28"
+        >
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_85%_15%,rgba(199,14,26,0.18),transparent_55%)]"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_85%,rgba(199,14,26,0.10),transparent_55%)]"
+          />
+
+          <div className="relative grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-end">
+            <div className="lg:col-span-8">
+              <p className="label-mark">The next step</p>
+              <h2 className="mt-6 font-display text-[clamp(2.4rem,6.2vw,6rem)] font-bold leading-[0.92] tracking-[-0.04em] text-white">
+                Got a project? <br />
+                <span className="text-red-active">Let&apos;s build it.</span>
+              </h2>
+              <p className="mt-8 max-w-xl text-base leading-7 text-white/65 sm:text-lg">
+                Drop us a note. We read everything personally and respond within
+                one business day with a clear next step.
+              </p>
+            </div>
+
+            <div className="lg:col-span-4 flex flex-col gap-4">
+              <Link
+                href="/contact"
+                className="inline-flex h-14 items-center justify-center rounded-full bg-white px-7 text-base font-medium text-background hover:bg-white/90 transition-colors"
+              >
+                Start a project
+              </Link>
+              <Link
+                href="/project"
+                className="inline-flex h-14 items-center justify-center rounded-full border border-white/15 px-7 text-base font-medium text-white/85 hover:border-white/40 hover:text-white transition-colors"
+              >
+                Or take the 2-min brief
+              </Link>
+            </div>
+          </div>
         </motion.div>
       </div>
-      <motion.div variants={variants.scaleUp} className="hidden lg:block h-[550px] absolute right-0 bottom-7">
-        <Image
-          src={heroImage}
-          alt="Hero Image"
-          className="h-full w-auto select-none"
-        />
-      </motion.div>
-    </motion.div>
+    </section>
   );
 }

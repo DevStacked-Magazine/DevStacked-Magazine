@@ -1,19 +1,31 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+@import "@fontsource/ibm-plex-mono/600.css";
 
 :root {
-  /* Brand */
-  --background-gray: rgba(255, 255, 255, 0.06);
-  --white-text: #ffffff;
+  /* Brand, kept from the existing palette */
   --red-active: #c70e1a;
   --red-active-hover: #89121a;
-  --orange-btn: #c7370e;
+  --red-soft: #c7370e;
+  --background-gray: rgba(255, 255, 255, 0.06);
 
-  /* Dark palette — the one and only theme */
-  --background: #1f1f1e;
+  /* Base canvas, refined */
+  --background: #141414;
+  --background-elevated: #1a1a1a;
+  --background-card: #1f1f1f;
   --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
+  --foreground-muted: oklch(0.72 0 0);
+  --foreground-faint: oklch(0.55 0 0);
+
+  /* Lines and surfaces */
+  --line: oklch(1 0 0 / 0.08);
+  --line-strong: oklch(1 0 0 / 0.14);
+
+  /* shadcn-compatible tokens (kept stable for existing components) */
+  --card: oklch(0.18 0 0);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
@@ -26,22 +38,33 @@
   --accent: oklch(0.371 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 12%);
   --ring: oklch(0.556 0 0);
   --radius: 0.625rem;
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-background-gray: var(--background-gray);
+  --color-background-elevated: var(--background-elevated);
+  --color-background-card: var(--background-card);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-nunito: var(--font-nunito);
-  --font-mono: var(--font-geist-mono);
-  --color-white: var(--white-text);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-foreground-faint: var(--foreground-faint);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  /* Font stacks, Satoshi is loaded via Fontshare CDN, JetBrains Mono via fontsource */
+  --font-sans: "Satoshi", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, sans-serif;
+  --font-display: "Satoshi", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo,
+    monospace;
+
+  --color-white: #ffffff;
   --color-red-active: var(--red-active);
   --color-red-active-hover: var(--red-active-hover);
+  --color-red-soft: var(--red-soft);
 
   --color-ring: var(--ring);
   --color-input: var(--input);
@@ -69,37 +92,168 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-.nav-link {
-  position: relative;
-  display: inline-block;
-  padding-bottom: 4px;
-}
-
-.nav-link::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  border-radius: 10px;
-  background-color: var(--red-active);
-  transition: width 0.3s ease;
-}
-
-.nav-link:hover::after,
-.nav-link-active::after {
-  width: 100%;
-}
+/* ============================================
+   Editorial primitives
+   ============================================ */
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
   html {
     @apply font-sans;
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Editorial display utility, used on H1, big H2 */
+  .font-display {
+    font-family: var(--font-display);
+    font-feature-settings: "ss01", "ss02", "cv01", "cv11";
+    letter-spacing: -0.035em;
+  }
+
+  /* Mono label, used for tiny technical meta */
+  .font-mono-meta {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* Single soft warm radial that lives behind the whole site.
+     Replaces the heavy red-blob ambient system. */
+  .ambient-canvas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background:
+      radial-gradient(
+        1100px 700px at 18% 8%,
+        rgba(199, 14, 26, 0.06) 0%,
+        rgba(199, 14, 26, 0) 60%
+      ),
+      radial-gradient(
+        900px 600px at 88% 92%,
+        rgba(199, 14, 26, 0.04) 0%,
+        rgba(199, 14, 26, 0) 65%
+      ),
+      var(--background);
+  }
+
+  /* Film grain, SVG noise data URL, very low opacity, blend in screen mode.
+     Apply to any container that wants a tactile surface. */
+  .grain {
+    position: relative;
+    isolation: isolate;
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  /* Editorial section spacing, cinematic chapter padding */
+  .section-pad {
+    padding-top: clamp(5rem, 12vw, 12rem);
+    padding-bottom: clamp(5rem, 12vw, 12rem);
+  }
+
+  /* Single tracked micro-mark for "label" feel without "SECTION 01" energy */
+  .label-mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--foreground-muted);
+  }
+  .label-mark::before {
+    content: "";
+    display: inline-block;
+    width: 1.75rem;
+    height: 1px;
+    background: var(--red-active);
+  }
+
+  /* Underline animation for nav links (replaces existing nav-link) */
+  .nav-link {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.25rem;
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--red-active);
+    transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .nav-link:hover::after,
+  .nav-link-active::after {
+    width: 100%;
+  }
+
+  /* Display heading clamp helpers */
+  .h-display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
   }
 }
+
+/* ============================================
+   Marquee, used by TrustedMarquee
+   ============================================ */
+@keyframes marquee-x {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+.marquee-track {
+  animation: marquee-x 38s linear infinite;
+  will-change: transform;
+}
+.marquee-pause:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ============================================
+   Editorial card primitive
+   ============================================ */
+.editorial-card {
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.025) 0%,
+    rgba(255, 255, 255, 0.005) 100%
+  );
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+  transition: border-color 0.4s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.editorial-card:hover {
+  border-color: var(--line-strong);
+}
+
+/* Hide scrollbar for the horizontal showcase track */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }

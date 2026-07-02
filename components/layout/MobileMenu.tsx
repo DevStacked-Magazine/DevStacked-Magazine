@@ -1,68 +1,92 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 
-const navItems = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/features", label: "Features" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/contact", label: "Contact" },
+const items = [
+  { href: "/", label: "Home", index: "01" },
+  { href: "/about", label: "About", index: "02" },
+  { href: "/services", label: "Services", index: "03" },
+  { href: "/contact", label: "Contact", index: "04" },
 ];
 
-export default function MobileMenu() {
-  const [isOpen, setIsOpen] = useState(false);
+const socials = [
+  { label: "Instagram", href: "https://www.instagram.com/devstackedmagazine/" },
+  { label: "TikTok", href: "https://www.tiktok.com/@devstackedmagazine" },
+  { label: "Email", href: "mailto:devstackedmagazine@gmail.com" },
+];
+
+export default function MobileMenu({ onClose }: { onClose: () => void }) {
   const pathname = usePathname();
 
   return (
-    <div className="md:hidden">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="p-2"
-        aria-label="Toggle menu"
-      >
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.35 }}
+      className="fixed inset-0 z-40 bg-background"
+    >
+      <div className="flex h-full flex-col justify-between px-8 pt-28 pb-12">
+        <motion.ul
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: 0.15 } },
+          }}
+          className="flex flex-col gap-3"
         >
-          {isOpen ? (
-            <path d="M6 18L18 6M6 6l12 12" />
-          ) : (
-            <path d="M4 6h16M4 12h16M4 18h16" />
-          )}
-        </svg>
-      </button>
-
-      {isOpen && (
-        <div className="absolute top-16 left-0 right-0 bg-white border-b shadow-lg">
-          <nav className="container mx-auto px-4 py-4 flex flex-col gap-4">
-            {navItems.map((item) => {
-              const isActive = pathname === item.href;
-              return (
+          {items.map((item) => {
+            const active = pathname === item.href;
+            return (
+              <motion.li
+                key={item.href}
+                variants={{
+                  hidden: { opacity: 0, y: 24 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
+                }}
+                onClick={onClose}
+                className="border-b border-white/10"
+              >
                 <Link
-                  key={item.href}
                   href={item.href}
-                  onClick={() => setIsOpen(false)}
-                  className={`text-base font-medium py-2 ${
-                    isActive
-                      ? "text-blue-600"
-                      : "text-gray-700 hover:text-blue-600"
-                  }`}
+                  className="group flex items-baseline justify-between py-5"
                 >
-                  {item.label}
+                  <span className="font-display text-5xl tracking-tight">
+                    <span className={active ? "text-red-active" : "text-white"}>{item.label}</span>
+                  </span>
+                  <span className="font-mono-meta text-white/40">{item.index}</span>
                 </Link>
-              );
-            })}
-          </nav>
-        </div>
-      )}
-    </div>
+              </motion.li>
+            );
+          })}
+        </motion.ul>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.55, duration: 0.6 }}
+          className="flex flex-col gap-5"
+        >
+          <p className="font-mono-meta text-white/40">Reach us</p>
+          <ul className="flex flex-col gap-2">
+            {socials.map((s) => (
+              <li key={s.label}>
+                <a
+                  href={s.href}
+                  target={s.href.startsWith("http") ? "_blank" : undefined}
+                  rel={s.href.startsWith("http") ? "noreferrer" : undefined}
+                  className="text-2xl text-white/90 hover:text-red-active transition-colors"
+                >
+                  {s.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+      </div>
+    </motion.div>
   );
 }
