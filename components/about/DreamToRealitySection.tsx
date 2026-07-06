@@ -1,154 +1,135 @@
 "use client";
 
-import type { LucideIcon } from "lucide-react";
-import { Code2, Layers3, Rocket } from "lucide-react";
-import { motion } from "framer-motion";
-import { variants, viewportConfig } from "@/lib/motion-presets";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "@/lib/gsap-presets";
 
-type TeamMember = {
-  id: number;
-  name: string;
-  role: string;
-  bio: string;
-  strengths: string[];
-  icon: LucideIcon;
-  accent: string;
-};
-
-const TEAM_MEMBERS: TeamMember[] = [
+const team = [
   {
-    id: 1,
     name: "Laurent Maxhuni",
     role: "Full-stack developer",
     bio: "Laurent builds complete web products from interface to implementation, with a focus on clean UX, strong performance, and reliable end-to-end execution.",
-    strengths: ["Frontend + backend", "Performance-focused builds", "Product-minded execution"],
-    icon: Code2,
-    accent: "End-to-end builds",
+    tags: ["Frontend + backend", "Performance", "Product-minded"],
   },
   {
-    id: 2,
     name: "Fatlum G\u00ebrxhaliu",
     role: "Full-stack developer",
     bio: "Fatlum builds full-stack web solutions with scalable structure, clean code, and dependable delivery across both the client and server side.",
-    strengths: ["Frontend + backend", "Scalable architecture", "Clean technical delivery"],
-    icon: Rocket,
-    accent: "End-to-end builds",
+    tags: ["Frontend + backend", "Scalable architecture", "Clean delivery"],
   },
 ];
 
-const teamPillars = [
+const principles = [
   {
     title: "Design with intent",
-    icon: Layers3,
+    body: "Every screen earns its place. We design against real content, not placeholders, and we say no to decoration.",
   },
   {
     title: "Build for growth",
-    icon: Rocket,
+    body: "Structures that scale with traffic, content, and team. No rewrites at the end of year one.",
+  },
+  {
+    title: "Own the outcome",
+    body: "You receive code, content, and control. No platform lock-in, no mystery builder, no black box.",
   },
 ];
 
 export default function DreamToRealitySection() {
+  const root = useRef<HTMLElement | null>(null);
+
+  useGSAP(
+    () => {
+      gsap.utils.toArray<HTMLElement>(".dtr-card").forEach((card, i) => {
+        gsap.from(card, {
+          opacity: 0,
+          y: 50,
+          duration: 1,
+          ease: "expo.out",
+          delay: i * 0.05,
+          scrollTrigger: { trigger: card, start: "top 85%" },
+        });
+      });
+    },
+    { scope: root }
+  );
+
   return (
-    <section className="mt-[5.5rem] max-[680px]:mt-[4.4rem]">
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewportConfig}
-        variants={variants.staggerContainer}
-      >
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-2xl">
-            <motion.div
-              variants={variants.fadeInUp}
-              className="text-xs font-semibold tracking-[0.24em] text-red-active uppercase"
-            >
-              About the team
-            </motion.div>
-            <motion.h2
-              variants={variants.fadeInUp}
-              className="mt-3 text-[clamp(2rem,3.8vw,3.4rem)] font-medium tracking-[0.01em]"
-            >
-              From an Idea to Your Digital Presence
-            </motion.h2>
+    <section ref={root} className="relative section-pad overflow-hidden">
+      <div className="mx-auto max-w-7xl px-5 sm:px-12 lg:px-20">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-end">
+          <div className="lg:col-span-7">
+            <p className="label-mark">From idea to launch</p>
+            <h2 className="mt-6 font-display text-[clamp(2.2rem,4.4vw,4rem)] font-bold leading-[0.98] tracking-[-0.035em] text-white">
+              Two developers, <br />
+              <span className="text-red-active">one mission.</span>
+            </h2>
           </div>
-          <motion.p
-            variants={variants.fadeInUp}
-            className="max-w-[36rem] text-sm leading-7 text-white/72 sm:text-base"
-          >
-            Two full-stack developers building modern digital products from
-            concept to launch, with the same focus on clean execution,
-            performance, and long-term reliability.
-          </motion.p>
+          <p className="lg:col-span-5 text-base leading-7 text-white/55 lg:max-w-md">
+            We build modern digital products from concept to launch, with the
+            same focus on clean execution, performance, and long-term reliability.
+          </p>
         </div>
 
-        <motion.div
-          variants={variants.fadeInUp}
-          className="mt-8 flex flex-wrap gap-3"
-        >
-          {teamPillars.map((pillar) => (
-            <div
-              key={pillar.title}
-              className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/6 px-4 py-2 text-sm text-white/72 backdrop-blur-md"
+        <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-5">
+          {principles.map((p, i) => (
+            <article
+              key={p.title}
+              className="dtr-card editorial-card p-7 lg:p-8 flex flex-col"
             >
-              <pillar.icon className="h-4 w-4 text-red-active" />
-              {pillar.title}
-            </div>
+              <span className="font-mono-meta text-red-active">
+                Principle {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3 className="mt-6 font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">
+                {p.title}
+              </h3>
+              <p className="mt-3 text-sm leading-7 text-white/60 sm:text-base">
+                {p.body}
+              </p>
+              <div className="mt-8 h-px w-12 bg-white/15" />
+            </article>
           ))}
-        </motion.div>
+        </div>
 
-        <motion.h3
-          variants={variants.fadeInUp}
-          className="mt-[2.3rem] text-[clamp(1.6rem,2.8vw,2.25rem)] font-medium tracking-[0.01em]"
-        >
-          Meet the Team
-        </motion.h3>
+        <div className="mt-24">
+          <p className="label-mark">The people</p>
+          <h3 className="mt-6 font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            Meet the studio.
+          </h3>
 
-        <motion.div
-          variants={variants.staggerContainer}
-          className="mt-[1.4rem] grid gap-[1.2rem] md:grid-cols-2"
-        >
-          {TEAM_MEMBERS.map((member) => (
-            <motion.article
-              variants={variants.fadeInUp}
-              whileHover={{ y: -6 }}
-              whileTap={{ scale: 0.99 }}
-              className="relative overflow-hidden rounded-[1.8rem] border border-white/18 bg-[linear-gradient(160deg,rgba(255,255,255,0.11),rgba(255,255,255,0.03))] p-6 shadow-[0_26px_90px_rgba(0,0,0,0.18)] backdrop-blur-xl"
-              key={member.id}
-            >
-              <div className="pointer-events-none absolute right-[-2rem] top-[-2rem] h-32 w-32 rounded-full bg-red-active/14 blur-[75px]" />
-              <div className="relative z-10">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-[1.15rem] border border-red-active/35 bg-red-active/10 text-red-active">
-                    <member.icon size={20} strokeWidth={2} />
-                  </div>
-                  <span className="rounded-full border border-white/12 bg-black/18 px-3 py-1 text-[0.68rem] font-semibold text-white/58 uppercase">
-                    {member.accent}
+          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
+            {team.map((m, i) => (
+              <article
+                key={m.name}
+                className="dtr-card editorial-card p-8 lg:p-10 flex flex-col"
+              >
+                <div className="flex items-baseline justify-between">
+                  <span className="font-mono-meta text-red-active">
+                    {String(i + 1).padStart(2, "0")} / {String(team.length).padStart(2, "0")}
                   </span>
+                  <span className="font-mono-meta text-white/35">Studio</span>
                 </div>
-
-                <h4 className="mt-8 text-[1.7rem] font-semibold">{member.name}</h4>
-                <p className="mt-2 text-sm font-medium text-red-active uppercase">
-                  {member.role}
+                <h4 className="mt-8 font-display text-3xl font-bold tracking-[-0.03em] text-white sm:text-4xl">
+                  {m.name}
+                </h4>
+                <p className="mt-2 font-mono-meta text-white/45">{m.role}</p>
+                <p className="mt-6 text-base leading-7 text-white/65">
+                  {m.bio}
                 </p>
-                <p className="mt-5 text-sm leading-7 text-white/72 sm:text-base">
-                  {member.bio}
-                </p>
-
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {member.strengths.map((strength) => (
-                    <span
-                      key={strength}
-                      className="rounded-full border border-white/12 bg-white/6 px-3 py-1.5 text-xs font-medium text-white/68"
+                <ul className="mt-8 flex flex-wrap gap-2 border-t border-white/10 pt-6">
+                  {m.tags.map((t) => (
+                    <li
+                      key={t}
+                      className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white/70"
                     >
-                      {strength}
-                    </span>
+                      {t}
+                    </li>
                   ))}
-                </div>
-              </div>
-            </motion.article>
-          ))}
-        </motion.div>
-      </motion.div>
+                </ul>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

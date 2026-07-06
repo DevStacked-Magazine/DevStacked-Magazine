@@ -78,7 +78,7 @@
         "type": "single-choice",
         "options": [
           "Yes, fully branded",
-          "Partially — some assets exist",
+          "Partially, some assets exist",
           "No, starting from scratch"
         ]
       }

@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Pre-rendered docs from a previous build that we don't author against.
+    "docs/**",
   ]),
 ]);
 

@@ -1,16 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { Nunito, Geist as GeistFont } from "next/font/google";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-
-const geist = GeistFont({ subsets: ["latin"], variable: "--font-sans" });
-
-const nunito = Nunito({
-  subsets: ["latin"],
-  variable: "--font-nunito",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -69,7 +60,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#89121a",
+  themeColor: "#1f1f1e",
   colorScheme: "dark",
 };
 
@@ -81,11 +72,18 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("scroll-smooth", "font-sans", geist.variable)}
+      className={cn("scroll-smooth", "antialiased")}
       suppressHydrationWarning
     >
-      <body className={`${nunito.variable} antialiased`}>
-        <main className="px-[20px] sm:px-[50px] lg:px-[100px] overflow-clip">
+      <head>
+        <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap"
+        />
+      </head>
+      <body className="bg-background text-foreground font-sans selection:bg-red-active/40 selection:text-white">
+        <main className="relative w-full max-w-[100vw] overflow-x-clip">
           {children}
         </main>
       </body>

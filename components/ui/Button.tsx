@@ -95,7 +95,6 @@ export default function Button({
         href={href}
         className={buttonClasses}
         style={customStyles}
-        {...(props as any)}
       >
         {content}
       </Link>
