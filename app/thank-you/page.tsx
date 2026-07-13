@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { variants, viewportConfig } from "@/lib/motion-presets";
+import { variants } from "@/lib/motion-presets";
 import Link from "next/link";
 
 export default function ThankYouPage() {
