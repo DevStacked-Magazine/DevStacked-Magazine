@@ -7,7 +7,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { motion } from "framer-motion";
-import { variants, viewportConfig } from "@/lib/motion-presets";
 
 const items = [
   {
@@ -20,7 +19,7 @@ const items = [
     value: "item-2",
     trigger: "How do you determine project pricing?",
     content:
-      "We offer fixed-price packages for clearly defined projects and custom quotes for more complex builds. Every engagement starts with a discovery conversation so you always know what you're paying for and why.",
+      "We offer fixed-price packages for clearly defined projects and custom quotes for more complex builds. Every engagement starts with a discovery conversation so you always know what you are paying for and why.",
   },
   {
     value: "item-3",
@@ -47,40 +46,46 @@ export default function FaqSection() {
     <motion.section
       initial="hidden"
       whileInView="visible"
-      viewport={viewportConfig}
-      variants={variants.staggerContainer}
-      className="my-30"
+      viewport={{ once: true, margin: "-100px" }}
+      variants={{
+        hidden: { opacity: 0, y: 30 },
+        visible: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } },
+      }}
+      className="relative section-pad"
     >
-      <motion.div
-        variants={variants.fadeInUp}
-        className="mx-auto mb-8 max-w-5xl text-center"
-      >
-        <p className="text-xs font-semibold tracking-[0.24em] text-red-active uppercase">
-          FAQ
-        </p>
-        <h2 className="mt-3 text-3xl font-semibold text-white sm:text-4xl">
-          Frequently Asked Questions
-        </h2>
-      </motion.div>
+      <div className="mx-auto max-w-7xl px-5 sm:px-12 lg:px-20">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <p className="label-mark">Questions</p>
+            <h2 className="mt-6 font-display text-[clamp(2rem,3.6vw,3.4rem)] font-bold leading-[0.98] tracking-[-0.035em] text-white">
+              Frequently <br />
+              <span className="text-white/55">asked.</span>
+            </h2>
+            <p className="mt-6 max-w-sm text-base leading-7 text-white/55">
+              The questions we hear most often, with the short honest answers.
+            </p>
+          </div>
 
-      <Accordion
-        type="multiple"
-        defaultValue={["item-1"]}
-        className="mx-auto w-full max-w-5xl"
-      >
-        {items.map((item) => (
-          <motion.div
-            key={item.value}
-            variants={variants.fadeInUp}
-            className="border-b border-white/15 last:border-b-0"
-          >
-            <AccordionItem value={item.value} className="border-0">
-              <AccordionTrigger>{item.trigger}</AccordionTrigger>
-              <AccordionContent>{item.content}</AccordionContent>
-            </AccordionItem>
-          </motion.div>
-        ))}
-      </Accordion>
+          <div className="lg:col-span-7">
+            <Accordion
+              type="multiple"
+              defaultValue={["item-1"]}
+              className="w-full border-t border-white/10"
+            >
+              {items.map((item) => (
+                <AccordionItem
+                  key={item.value}
+                  value={item.value}
+                  className="border-b border-white/10"
+                >
+                  <AccordionTrigger>{item.trigger}</AccordionTrigger>
+                  <AccordionContent>{item.content}</AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </div>
+      </div>
     </motion.section>
   );
 }

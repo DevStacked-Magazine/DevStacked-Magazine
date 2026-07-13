@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { absoluteUrl, siteConfig } from "@/lib/site";
 import HeroSection from "@/components/home/HeroSection";
+import ServicesBento from "@/components/home/ServicesBento";
+import TrustedMarquee from "@/components/home/TrustedMarquee";
+import PinnedJourney from "@/components/home/PinnedJourney";
+import ShowcaseHorizontal from "@/components/home/ShowcaseHorizontal";
+import TestimonialCarousel from "@/components/home/TestimonialCarousel";
 import StatsSection from "@/components/StatsSection";
-import OurProjectsSection from "@/components/home/OurProjectsSection";
-import OurJourneySection from "@/components/OurJourneySection";
 import CtaSection from "@/components/CtaSection";
 import FaqSection from "@/components/home/FaqSection";
-import { absoluteUrl, siteConfig } from "@/lib/site";
-import ellipse from "@/public/styles/elipse-red.svg";
 
 export const metadata: Metadata = {
   title: "Web Design, Development, and Tech Content",
@@ -53,30 +54,18 @@ const homePageJsonLd = {
 export default function Home() {
   return (
     <div className="relative">
-      <Image
-        src={ellipse}
-        alt=""
-        aria-hidden
-        className="absolute top-[-200px] right-[-100px] -z-10 rotate-[160deg] h-[1700px]  scale-[1.5] select-none"
-      />
+      <div aria-hidden className="ambient-canvas" />
+
       <HeroSection />
-      <Image
-        src={ellipse}
-        alt=""
-        aria-hidden
-        className="absolute h-[500px] top-[150vh] left-0 -z-10 scale-[5] select-none"
-      />
+      <TrustedMarquee />
+      <ServicesBento />
+      <ShowcaseHorizontal />
       <StatsSection />
-      <OurProjectsSection />
-      <Image
-        src={ellipse}
-        alt=""
-        aria-hidden
-        className="absolute bottom-[-100px] right-[-50px] w-[400px] h-[500px] rotate-[200deg] md:rotate-[250deg] -z-10 scale-[5] select-none"
-      />
-      <OurJourneySection />
+      <PinnedJourney />
+      <TestimonialCarousel />
       <CtaSection />
       <FaqSection />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
