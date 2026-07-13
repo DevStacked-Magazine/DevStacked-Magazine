@@ -124,7 +124,7 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <div className="relative h-150 w-150 items-center lg:h-130 lg:w-130 justify-center flex">
+          <div className="hero-stage relative h-150 w-150 items-center lg:h-130 lg:w-130 justify-center flex">
             <Image
               src={Mascot}
               alt="DevStacked mascot waving"

@@ -37,10 +37,5 @@
     "tailwindcss": "^4",
     "typescript": "^5"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "sharp"
-    ]
-  },
-  "packageManager": "pnpm@10.26.2"
+  "packageManager": "pnpm@11.12.0"
 }
