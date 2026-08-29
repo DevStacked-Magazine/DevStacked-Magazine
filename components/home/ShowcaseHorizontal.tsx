@@ -6,7 +6,7 @@ import { gsap } from "@/lib/gsap-presets";
 import Link from "next/link";
 
 /**
- * The honest showcase. DevStacked is a young studio: instead of invented
+ * The honest showcase. devstackedmagazine is a young studio: instead of invented
  * case studies, this sheet annotates the one project every visitor can
  * verify — the site they are reading.
  */

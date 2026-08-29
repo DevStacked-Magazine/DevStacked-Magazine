@@ -15,7 +15,7 @@ function Info() {
       className='w-full'
     >
       <motion.h1 variants={variants.fadeInUp} className="mb-4 text-3xl font-semi leading-tight text-white sm:mb-6 md:text-4xl lg:text-5xl">
-        Get in Touch with <span className="bg-clip-text text-red-active">DevStacked</span>
+        Get in Touch with <span className="bg-clip-text text-red-active">devstackedmagazine</span>
       </motion.h1>
       <motion.p variants={variants.fadeInUp} className="max-w-2xl text-base text-gray-300 sm:text-lg">
         We&apos;d love to hear from you! Whether you have a question about our services, want to discuss a project, or just want to say hello, feel free to reach out.

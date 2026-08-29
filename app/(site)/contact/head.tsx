@@ -3,7 +3,7 @@ import { absoluteUrl, siteConfig } from "@/lib/site";
 export default function Head() {
   const title = `Contact | ${siteConfig.name}`;
   const description =
-    "Contact DevStacked Magazine for custom website work, web services, and collaboration opportunities.";
+    "Contact devstackedmagazine for custom website work, web services, and collaboration opportunities.";
   const url = absoluteUrl("/contact");
 
   return (

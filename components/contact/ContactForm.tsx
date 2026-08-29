@@ -66,7 +66,7 @@ export default function ContactForm() {
           email: payload.email,
           message: payload.discussion,
           subject: `New contact request from ${payload.fullName}`,
-          from_name: "DevStacked Magazine",
+          from_name: "devstackedmagazine",
         }),
       });
       const result = (await res.json()) as { success?: boolean; message?: string };

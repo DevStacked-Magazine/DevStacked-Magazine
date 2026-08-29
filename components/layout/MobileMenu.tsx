@@ -53,7 +53,7 @@ export default function MobileMenu({ onClose }: { onClose: () => void }) {
                 <Link href={item.href} className="group flex items-baseline py-5">
                   <span
                     className={[
-                      "font-display text-4xl font-bold tracking-[-0.02em] transition-colors sm:text-5xl",
+                      "text-4xl font-bold tracking-[-0.02em] transition-colors sm:text-5xl",
                       active ? "text-red-active" : "text-ink group-hover:text-red-active",
                     ].join(" ")}
                   >

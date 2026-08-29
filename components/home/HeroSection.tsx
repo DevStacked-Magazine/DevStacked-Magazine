@@ -2,10 +2,9 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import Mascot from "@/public/images/home/heroImage.png";
 import { gsap } from "@/lib/gsap-presets";
 import { useGSAP } from "@gsap/react";
+import CloudBot from "@/components/mascot/CloudBot";
 
 const specs = [
   { label: "Studio", value: "Two developers" },
@@ -30,19 +29,7 @@ export default function HeroSection() {
           { scaleX: 0, transformOrigin: "left center", duration: 1, stagger: 0.12 },
           "-=0.6"
         )
-        .from(".hero-fade", { y: 14, opacity: 0, duration: 0.8, stagger: 0.08 }, "-=0.7")
-        .from(".hero-fig", { opacity: 0, y: 16, duration: 1 }, "-=0.7");
-
-      gsap.to(".hero-fig", {
-        yPercent: -5,
-        ease: "none",
-        scrollTrigger: {
-          trigger: root.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
+        .from(".hero-fade", { y: 14, opacity: 0, duration: 0.8, stagger: 0.08 }, "-=0.7");
     },
     { scope: root }
   );
@@ -54,7 +41,7 @@ export default function HeroSection() {
           <div className="lg:col-span-8">
             <h1 className="h-display text-[clamp(2.7rem,5.6vw,5.4rem)] text-ink">
               <span className="hero-line block overflow-hidden">
-                <span className="block">Good work deserves</span>
+                <span className="block">Good work needs</span>
               </span>
               <span className="hero-line block overflow-hidden">
                 <span className="block">
@@ -64,7 +51,7 @@ export default function HeroSection() {
             </h1>
 
             <p className="hero-fade mt-8 max-w-xl text-base leading-7 text-ink-dim sm:text-lg">
-              DevStacked Magazine draws, builds, and ships fast websites for
+              devstackedmagazine draws, builds, and ships fast websites for
               founders and small teams — then hands you the code. Practical tech
               content on the side, because that is how we think.
             </p>
@@ -89,16 +76,8 @@ export default function HeroSection() {
           </div>
 
           <div className="relative flex justify-center lg:col-span-4">
-            <figure className="hero-fig relative w-full max-w-[340px]">
-              <Image
-                src={Mascot}
-                alt="The DevStacked studio mascot"
-                width={680}
-                height={680}
-                priority
-                sizes="(max-width: 1024px) 60vw, 340px"
-                className="h-auto w-full object-contain"
-              />
+            <figure className="hero-mascot relative w-full max-w-[340px] -translate-y-24">
+              <CloudBot className="h-auto w-full" />
             </figure>
           </div>
         </div>

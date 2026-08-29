@@ -1,2 +1,2 @@
-# DevStacked-Magazine
-DevStacked-Magazine website
+# devstackedmagazine
+devstackedmagazine website

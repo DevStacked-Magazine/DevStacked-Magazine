@@ -2,16 +2,8 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@font-face {
-  font-family: "Pirso";
-  src: url("/fonts/Pirso-Semibold.otf") format("opentype");
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-}
-
 /* ============================================================
-   THE SPEC SHEET — DevStacked Magazine visual world
+   THE SPEC SHEET — devstackedmagazine visual world
    The site is a working set of engineering drawings:
    graphite board, ink linework, red reserved for the
    live/active edge and revision marks. One material,
@@ -79,10 +71,10 @@
   --color-ink-dim: var(--ink-dim);
   --color-ink-faint: var(--ink-faint);
 
-  /* Pirso gives the whole site one confident, geometric voice. */
-  --font-sans: "Pirso", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-    Roboto, sans-serif;
-  --font-display: "Pirso", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-outfit), "Outfit", ui-sans-serif, system-ui,
+    -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: var(--font-momo-trust-display), "Momo Trust Display",
+    ui-sans-serif, system-ui, sans-serif;
 
   --color-white: #ffffff;
   --color-red-active: var(--red-active);
@@ -132,9 +124,18 @@
   }
   body {
     @apply bg-board text-ink;
-    font-feature-settings: "ss01", "ss02", "cv01", "cv11";
+    font-feature-settings: "kern", "liga";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
   }
 
   /* Browser surfaces carry the design: selection, caret,
@@ -176,12 +177,12 @@
   /* Display voice */
   .font-display {
     font-family: var(--font-display);
-    font-feature-settings: "ss01", "ss02", "cv01", "cv11";
+    font-feature-settings: "kern", "liga";
     letter-spacing: -0.03em;
   }
   .h-display {
     font-family: var(--font-display);
-    font-weight: 700;
+    font-weight: 400;
     line-height: 0.96;
     letter-spacing: -0.03em;
   }
@@ -413,3 +414,26 @@
 /* Hide scrollbar for horizontal tracks */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+
+/* ============================================================
+   Cloud mascot
+   ============================================================ */
+
+.cloud-bot {
+  position: relative;
+  display: inline-block;
+  aspect-ratio: 1;
+  min-width: 0;
+  pointer-events: none;
+}
+
+.cloud-bot > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.cloud-bot-eye {
+  fill: #f1efe9;
+}

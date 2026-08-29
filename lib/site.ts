@@ -1,8 +1,8 @@
 export const siteConfig = {
-  name: "DevStacked Magazine",
+  name: "devstackedmagazine",
   url: "https://devstackedmagazine.com",
   description:
-    "DevStacked Magazine publishes practical tech content and builds websites for individuals and businesses.",
+    "devstackedmagazine publishes practical tech content and builds websites for individuals and businesses.",
   ogImage: "/images/home/quickit.png",
   email: "devstackedmagazine@gmail.com",
 };

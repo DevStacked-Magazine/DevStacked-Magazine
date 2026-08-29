@@ -4,21 +4,21 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Talk to DevStacked Magazine about a new website, landing page, redesign, or product-facing build.",
+    "Talk to devstackedmagazine about a new website, landing page, redesign, or product-facing build.",
   alternates: {
     canonical: "/contact",
   },
   openGraph: {
     title: `Contact | ${siteConfig.name}`,
     description:
-      "Start a conversation with DevStacked Magazine about websites, launches, and digital product work.",
+      "Start a conversation with devstackedmagazine about websites, launches, and digital product work.",
     url: `${siteConfig.url}/contact`,
     images: [
       {
         url: siteConfig.ogImage,
         width: 1200,
         height: 630,
-        alt: "DevStacked Magazine contact page preview",
+        alt: "devstackedmagazine contact page preview",
       },
     ],
   },

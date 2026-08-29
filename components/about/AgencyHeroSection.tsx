@@ -1,10 +1,8 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap-presets";
-import Mascot from "@/public/images/home/heroImage.png";
 
 const facts = [
   { label: "Founded", value: "2025" },
@@ -23,8 +21,7 @@ export default function AgencyHeroSection() {
         duration: 1.1,
         stagger: 0.07,
       })
-        .from(".about-fade", { y: 14, opacity: 0, duration: 0.8, stagger: 0.08 }, "-=0.6")
-        .from(".about-fig", { opacity: 0, duration: 0.9 }, "-=0.5");
+        .from(".about-fade", { y: 14, opacity: 0, duration: 0.8, stagger: 0.08 }, "-=0.6");
     },
     { scope: root }
   );
@@ -39,19 +36,7 @@ export default function AgencyHeroSection() {
                 <span className="block">We shape digital</span>
               </span>
               <span className="about-line block overflow-hidden">
-                <span className="inline-flex items-center gap-4">
-                  <span className="block">products</span>
-                  <span className="about-fig relative inline-block h-[0.82em] w-[0.82em] overflow-hidden rounded-xl border border-line align-middle">
-                    <Image
-                      src={Mascot}
-                      alt="The DevStacked studio mascot"
-                      fill
-                      priority
-                      sizes="120px"
-                      className="object-contain"
-                    />
-                  </span>
-                </span>
+                <span className="block">products</span>
               </span>
               <span className="about-line block overflow-hidden">
                 <span className="block text-ink-dim">that work for a living.</span>

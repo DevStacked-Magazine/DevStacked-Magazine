@@ -78,9 +78,9 @@ export default function Footer() {
 
         <div className="mt-20 flex flex-col gap-6 border-t border-line pt-8 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <Image src={Logo} alt="DevStacked" className="h-8 w-auto" />
+            <Image src={Logo} alt="devstackedmagazine" className="h-8 w-auto" />
             <p className="mt-4 max-w-sm text-sm leading-7 text-ink-faint">
-              DevStacked Magazine. Modern websites and practical tech content
+              devstackedmagazine. Modern websites and practical tech content
               from a two-person studio.
             </p>
           </div>
@@ -105,7 +105,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 flex flex-col gap-2 text-xs text-ink-faint sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} DevStacked Magazine. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} devstackedmagazine. All rights reserved.</p>
           <p className="meta-label">Vushtrri, Kosova — Remote worldwide</p>
         </div>
 

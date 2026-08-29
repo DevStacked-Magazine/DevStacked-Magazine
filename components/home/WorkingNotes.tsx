@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 /**
  * Working notes — the studio's own voice, labeled as ours.
  * No fabricated testimonials: every quote below is written by
- * DevStacked, about how they work, and signed as such.
+ * devstackedmagazine, about how they work, and signed as such.
  */
 
 const notes = [

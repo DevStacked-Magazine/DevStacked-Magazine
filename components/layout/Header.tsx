@@ -33,8 +33,8 @@ export default function Header() {
         ].join(" ")}
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-5 sm:px-12 lg:px-20">
-          <Link href="/" className="flex shrink-0 items-center gap-3" aria-label="DevStacked home">
-            <Image src={Logo} alt="DevStacked" className="h-6 w-auto" priority />
+          <Link href="/" className="flex shrink-0 items-center gap-3" aria-label="devstackedmagazine home">
+            <Image src={Logo} alt="devstackedmagazine" className="h-6 w-auto" priority />
           </Link>
 
           <div className="hidden lg:block">

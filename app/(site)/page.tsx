@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "DevStacked Magazine | Web Design, Development, and Tech Content",
+    title: "devstackedmagazine | Web Design, Development, and Tech Content",
     description:
       "Websites and practical tech content from a two-person studio. Fast builds, honest timelines, and code you own.",
     url: siteConfig.url,
@@ -27,13 +27,13 @@ export const metadata: Metadata = {
         url: siteConfig.ogImage,
         width: 1200,
         height: 630,
-        alt: "DevStacked Magazine website preview",
+        alt: "devstackedmagazine website preview",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "DevStacked Magazine | Web Design, Development, and Tech Content",
+    title: "devstackedmagazine | Web Design, Development, and Tech Content",
     description:
       "Websites and practical tech content from a two-person studio. Fast builds, honest timelines, and code you own.",
     images: [siteConfig.ogImage],

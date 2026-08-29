@@ -50,7 +50,7 @@ export async function POST(request: Request) {
       email: email.trim(),
       message: discussion.trim(),
       subject: `New contact request from ${fullName.trim()}`,
-      from_name: "DevStacked Magazine",
+      from_name: "devstackedmagazine",
     };
 
     const response = await fetch("https://api.web3forms.com/submit", {
