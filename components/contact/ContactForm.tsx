@@ -90,7 +90,7 @@ export default function ContactForm() {
   return (
     <form onSubmit={onSubmit} className="space-y-4">
       <div>
-        <label htmlFor="fullName" className="font-mono-meta block mb-2 text-white/45">
+        <label htmlFor="fullName" className="meta-label block mb-2 text-white/45">
           Full name
         </label>
         <input
@@ -102,11 +102,11 @@ export default function ContactForm() {
           onChange={onChange}
           required
           autoComplete="name"
-          className="h-13 w-full rounded-2xl border border-white/12 bg-white/[0.03] px-5 text-sm text-white outline-none placeholder:text-white/35 transition-colors focus:border-white/30 sm:h-14 sm:text-base"
+          className="h-13 w-full rounded-2xl border border-line bg-transparent px-4 text-sm text-ink outline-none placeholder:text-ink-faint transition-colors focus:border-red-active sm:h-14 sm:text-base"
         />
       </div>
       <div>
-        <label htmlFor="email" className="font-mono-meta block mb-2 text-white/45">
+        <label htmlFor="email" className="meta-label block mb-2 text-white/45">
           Email
         </label>
         <input
@@ -118,11 +118,11 @@ export default function ContactForm() {
           onChange={onChange}
           required
           autoComplete="email"
-          className="h-13 w-full rounded-2xl border border-white/12 bg-white/[0.03] px-5 text-sm text-white outline-none placeholder:text-white/35 transition-colors focus:border-white/30 sm:h-14 sm:text-base"
+          className="h-13 w-full rounded-2xl border border-line bg-transparent px-4 text-sm text-ink outline-none placeholder:text-ink-faint transition-colors focus:border-red-active sm:h-14 sm:text-base"
         />
       </div>
       <div>
-        <label htmlFor="discussion" className="font-mono-meta block mb-2 text-white/45">
+        <label htmlFor="discussion" className="meta-label block mb-2 text-white/45">
           Project discussion
         </label>
         <textarea
@@ -133,7 +133,7 @@ export default function ContactForm() {
           onChange={onChange}
           required
           rows={6}
-          className="w-full resize-none rounded-2xl border border-white/12 bg-white/[0.03] px-5 py-4 text-sm text-white outline-none placeholder:text-white/35 transition-colors focus:border-white/30 sm:text-base"
+          className="w-full resize-none rounded-2xl border border-line bg-transparent px-4 py-4 text-sm text-ink outline-none placeholder:text-ink-faint transition-colors focus:border-red-active sm:text-base"
         />
       </div>
 
@@ -150,11 +150,11 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={submitting}
-          className="inline-flex h-14 w-full items-center justify-center rounded-full bg-white px-7 text-base font-medium text-background transition-colors hover:bg-white/90 disabled:opacity-70 sm:w-auto"
+          className="btn-ink w-full disabled:pointer-events-none disabled:opacity-60 sm:w-auto"
         >
-          {submitting ? "Sending..." : "Send message"}
+          {submitting ? "Sending…" : "Send message"}
           {!submitting && (
-            <svg className="ml-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <svg className="ml-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 5l7 7-7 7" />
             </svg>
           )}

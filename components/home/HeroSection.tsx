@@ -7,27 +7,34 @@ import Mascot from "@/public/images/home/heroImage.png";
 import { gsap } from "@/lib/gsap-presets";
 import { useGSAP } from "@gsap/react";
 
+const specs = [
+  { label: "Studio", value: "Two developers" },
+  { label: "Reply", value: "One business day" },
+  { label: "Handover", value: "Code you own" },
+];
+
 export default function HeroSection() {
   const root = useRef<HTMLElement | null>(null);
 
   useGSAP(
     () => {
+      // One authored moment: the interface settles into place.
       const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
-      tl.from(".hero-eyebrow", { y: 24, opacity: 0, duration: 0.9, delay: 0.1 })
-        .from(".hero-line > span", {
-          yPercent: 110,
-          opacity: 0,
-          duration: 1.1,
-          stagger: 0.05,
-        }, "-=0.6")
-        .from(".hero-sub", { y: 20, opacity: 0, duration: 0.9 }, "-=0.7")
-        .from(".hero-cta", { y: 20, opacity: 0, duration: 0.9, stagger: 0.08 }, "-=0.7")
-        .from(".hero-meta > *", { y: 12, opacity: 0, duration: 0.7, stagger: 0.06 }, "-=0.6")
-        .from(".hero-stage", { scale: 0.94, opacity: 0, duration: 1.3 }, "-=1.1")
-        .from(".hero-mascot", { y: 24, opacity: 0, duration: 1.1, ease: "expo.out" }, "-=1");
+      tl.from(".hero-line > span", {
+        yPercent: 112,
+        duration: 1.1,
+        stagger: 0.07,
+      })
+        .from(
+          ".hero-draw",
+          { scaleX: 0, transformOrigin: "left center", duration: 1, stagger: 0.12 },
+          "-=0.6"
+        )
+        .from(".hero-fade", { y: 14, opacity: 0, duration: 0.8, stagger: 0.08 }, "-=0.7")
+        .from(".hero-fig", { opacity: 0, y: 16, duration: 1 }, "-=0.7");
 
-      gsap.to(".hero-mascot", {
-        yPercent: -4,
+      gsap.to(".hero-fig", {
+        yPercent: -5,
         ease: "none",
         scrollTrigger: {
           trigger: root.current,
@@ -36,124 +43,68 @@ export default function HeroSection() {
           scrub: true,
         },
       });
-
-      gsap.to(".hero-title-shift", {
-        xPercent: -4,
-        ease: "none",
-        scrollTrigger: {
-          trigger: root.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 0.6,
-        },
-      });
     },
     { scope: root }
   );
 
   return (
-    <section
-      ref={root}
-      className="relative min-h-[calc(100vh-7rem)] overflow-hidden"
-    >
-      <div aria-hidden className="ambient-canvas" />
-
-      <div className="relative mx-auto max-w-7xl px-5 sm:px-12 lg:px-20 pt-12 pb-24 lg:pt-20 lg:pb-32">
-        <div className="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-10 items-center">
-          <div className="lg:col-span-7">
-            <p className="hero-eyebrow label-mark">DEVSTACKED</p>
-
-            <h1 className="hero-title-shift mt-8 font-display text-[clamp(2.6rem,5.2vw,5rem)] font-bold leading-[0.95] tracking-[-0.04em] text-white">
+    <section ref={root} className="sheet-grid relative overflow-hidden">
+      <div className="relative mx-auto max-w-7xl px-5 pt-16 pb-14 sm:px-12 lg:px-20 lg:pt-24 lg:pb-20">
+        <div className="grid grid-cols-1 items-end gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-8">
+            <h1 className="h-display text-[clamp(2.7rem,5.6vw,5.4rem)] text-ink">
               <span className="hero-line block overflow-hidden">
-                <span className="inline-block">Websites That Work</span>
+                <span className="block">Good work deserves</span>
               </span>
               <span className="hero-line block overflow-hidden">
-                <span className="inline-block text-white/90">
-                  as Hard as <span className="text-red-active">You Do</span>
+                <span className="block">
+                  a better <span className="text-red-active">front door.</span>
                 </span>
               </span>
             </h1>
 
-            <p className="hero-sub mt-8 max-w-xl text-base leading-7 text-white/65 sm:text-lg">
-              We build fast, modern, and SEO-optimized websites that help your
-              business get found — by search engines and AI alike.
+            <p className="hero-fade mt-8 max-w-xl text-base leading-7 text-ink-dim sm:text-lg">
+              DevStacked Magazine draws, builds, and ships fast websites for
+              founders and small teams — then hands you the code. Practical tech
+              content on the side, because that is how we think.
             </p>
 
-            <div className="mt-10 flex flex-wrap items-center gap-4">
-              <Link
-                href="/project"
-                className="hero-cta inline-flex h-12 items-center rounded-full bg-white px-7 text-sm font-medium text-background hover:bg-white/90 transition-colors"
-              >
+            <div className="hero-fade mt-10 flex flex-wrap items-center gap-4">
+              <Link href="/project" className="btn-ink">
                 Start a project
               </Link>
-              <Link
-                href="/services"
-                className="hero-cta inline-flex h-12 items-center rounded-full border border-white/15 px-7 text-sm font-medium text-white/85 hover:border-white/40 hover:text-white transition-colors"
-              >
-                See our work
-                <svg
-                  aria-hidden
-                  className="ml-2 h-4 w-4"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 5l7 7-7 7" />
-                </svg>
+              <Link href="/services" className="btn-line">
+                See what we build
               </Link>
             </div>
 
-            <div className="hero-meta mt-16 grid grid-cols-2 gap-6 max-w-md border-t border-white/8 pt-6 sm:grid-cols-4">
-              <div>
-                <p className="font-display text-2xl text-white">20+</p>
-                <p className="mt-1 text-xs text-white/45">Projects Goal for Year One</p>
-              </div>
-              <div>
-                <p className="font-display text-2xl text-white">98<span className="text-red-active">%</span></p>
-                <p className="mt-1 text-xs text-white/45">Client Satisfaction Target</p>
-              </div>
-              <div>
-                <p className="font-display text-2xl text-white">10+</p>
-                <p className="mt-1 text-xs text-white/45">Technologies We Work With</p>
-              </div>
-              <div>
-                <p className="font-display text-2xl text-white">24<span className="text-white/50">/7</span></p>
-                <p className="mt-1 text-xs text-white/45">Support Available</p>
-              </div>
+            <div className="hero-draw mt-14 grid max-w-2xl grid-cols-1 gap-6 border-t border-line pt-6 sm:grid-cols-3">
+              {specs.map((s) => (
+                <div key={s.label}>
+                  <p className="meta-label text-ink-faint">{s.label}</p>
+                  <p className="mt-2 text-sm font-medium text-ink">{s.value}</p>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="relative h-150 w-150 items-center lg:h-130 lg:w-130 justify-center flex">
-            <Image
-              src={Mascot}
-              alt="DevStacked mascot waving"
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 40vw"
-              className="hero-mascot object-contain p-2 will-change-transform"
-            />
+          <div className="relative flex justify-center lg:col-span-4">
+            <figure className="hero-fig relative w-full max-w-[340px]">
+              <Image
+                src={Mascot}
+                alt="The DevStacked studio mascot"
+                width={680}
+                height={680}
+                priority
+                sizes="(max-width: 1024px) 60vw, 340px"
+                className="h-auto w-full object-contain"
+              />
+            </figure>
           </div>
         </div>
+
       </div>
 
-      <div
-        aria-hidden
-        className="pointer-events-none absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/35"
-      >
-        <span className="font-mono-meta">Scroll</span>
-        <span className="block h-10 w-px bg-white/20 overflow-hidden">
-          <span className="block h-1/2 w-full bg-white/60 animate-[hero-line_1.6s_ease-in-out_infinite]" />
-        </span>
-      </div>
-
-      <style jsx>{`
-        @keyframes hero-line {
-          0%   { transform: translateY(-100%); }
-          50%  { transform: translateY(0%); }
-          100% { transform: translateY(200%); }
-        }
-      `}</style>
     </section>
   );
 }

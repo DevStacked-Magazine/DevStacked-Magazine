@@ -32,16 +32,16 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const baseStyles =
-    "whitespace-nowrap inline-flex items-center justify-center gap-2 rounded-4xl font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:cursor-pointer";
+    "whitespace-nowrap inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:cursor-pointer";
 
   const variants = {
     primary:
-      "bg-red-active text-white hover:opacity-90 hover:bg-red-active-hover",
+      "bg-red-active text-white hover:bg-red-active-hover focus-visible:ring-red-active",
     secondary:
-      "bg-foreground text-white hover:bg-gray-700 focus-visible:ring-gray-400",
+      "bg-ink text-board hover:bg-red-active hover:text-white focus-visible:ring-red-active",
     outline:
-      "border-2 border-red-active bg-transparent text-red-active hover:bg-red-active hover:text-white",
-    ghost: "bg-transparent text-white hover:bg-white/10",
+      "border border-line-strong bg-transparent text-ink hover:bg-ink hover:text-board hover:border-ink focus-visible:ring-red-active",
+    ghost: "bg-transparent text-ink hover:bg-white/10",
   };
 
   const sizes = {
@@ -52,10 +52,12 @@ export default function Button({
 
   const widthClass = fullWidth ? "w-full" : "w-auto";
   const buttonClasses = `${baseStyles} ${variants[variant]} ${sizes[size]} ${widthClass} ${className}`;
-  const customStyles =
-    variant === "primary"
+  const customStyles = {
+    borderRadius: "9999px",
+    ...(variant === "primary"
       ? { backgroundColor: "var(--red-active)" }
-      : undefined;
+      : {}),
+  };
 
   const content = (
     <>

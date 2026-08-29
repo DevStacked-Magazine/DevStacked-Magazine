@@ -75,13 +75,6 @@ export default function RootLayout({
       className={cn("scroll-smooth", "antialiased")}
       suppressHydrationWarning
     >
-      <head>
-        <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="anonymous" />
-        <link
-          rel="stylesheet"
-          href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap"
-        />
-      </head>
       <body className="bg-background text-foreground font-sans selection:bg-red-active/40 selection:text-white">
         <main className="relative w-full max-w-[100vw] overflow-x-clip">
           {children}

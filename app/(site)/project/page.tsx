@@ -4,22 +4,16 @@ import Quiz from "@/components/project/Quiz";
 
 function Project() {
 	return (
-		<section className="relative -mx-[20px] min-h-screen overflow-visible bg-background px-[20px] sm:-mx-[50px] sm:px-[50px] lg:-mx-[100px] lg:px-[100px]">
+		<section className="sheet-grid relative h-dvh min-h-0 overflow-hidden bg-board px-5 sm:px-8 lg:px-12">
 			<div
 				aria-hidden
-				className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(199,14,26,0.12),transparent_42%)]"
+				className="pointer-events-none absolute -left-32 top-0 h-96 w-96 rounded-full bg-red-active/10 blur-3xl"
 			/>
 			<div
 				aria-hidden
-				className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(199,14,26,0.08),transparent_40%)]"
+				className="pointer-events-none absolute -bottom-40 -right-24 h-[28rem] w-[28rem] rounded-full bg-red-active/8 blur-3xl"
 			/>
-			<div className="pointer-events-none absolute -left-16 top-6 h-80 w-80 rounded-full bg-red-active/28 blur-[130px]" />
-			<div className="pointer-events-none absolute left-[30%] top-[14%] h-64 w-64 rounded-full bg-red-active/18 blur-[115px]" />
-			<div className="pointer-events-none absolute right-[4%] top-[16%] h-72 w-[300px] rounded-full bg-red-active/22 blur-[125px]" />
-			<div className="pointer-events-none absolute right-[14%] top-[52%] h-64 w-64 rounded-full bg-red-active/18 blur-[125px]" />
-			<div className="pointer-events-none absolute left-[8%] bottom-[10%] h-72 w-72 rounded-full bg-red-active/18 blur-[130px]" />
-			<div className="pointer-events-none absolute right-[-4%] bottom-[-2%] h-80 w-80 rounded-full bg-red-active/24 blur-[140px]" />
-			<div className="relative z-10 mx-auto flex min-h-screen w-full max-w-6xl flex-col items-stretch justify-start py-0">
+			<div className="relative z-10 mx-auto flex h-full min-h-0 w-full max-w-7xl items-center py-5 sm:py-8 lg:py-10">
 				<Quiz />
 			</div>
 		</section>

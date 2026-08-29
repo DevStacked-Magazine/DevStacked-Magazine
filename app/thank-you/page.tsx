@@ -1,66 +1,36 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { variants, viewportConfig } from "@/lib/motion-presets";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function ThankYouPage() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center py-20 text-white">
-      <div className="pointer-events-none absolute -inset-20">
-        <div className="absolute -left-28 top-8 h-90 w-90 rounded-full bg-red-active/30 blur-[120px]" />
-        <div className="absolute right-[8%] top-[20%] h-80 w-[320px] rounded-full bg-red-active/24 blur-[120px]" />
-        <div className="absolute right-[-10%] bottom-[-8%] h-100 w-100 rounded-full bg-red-active/26 blur-[140px]" />
-      </div>
-
-      <div className="relative z-10 mx-auto max-w-2xl px-4 text-center">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={variants.staggerContainer}
-          className="space-y-8"
-        >
-          <motion.div variants={variants.fadeInUp}>
-            <h1 className="text-5xl font-semibold leading-tight sm:text-6xl">
-              Thank You!
-            </h1>
-          </motion.div>
-
-          <motion.p
-            variants={variants.fadeInUp}
-            className="text-lg text-white/80 max-w-[50ch] mx-auto"
-          >
-            We&apos;ve received your message and appreciate you reaching out.
-            Our team will get back to you as soon as possible.
-          </motion.p>
-
-          <motion.p
-            variants={variants.fadeInUp}
-            className="text-base text-white/65"
-          >
-            In the meantime, feel free to check out our work or explore more
-            about what we do.
-          </motion.p>
-
-          <motion.div
-            variants={variants.fadeInUp}
-            className="flex flex-col sm:flex-row gap-4 justify-center pt-4"
-          >
-            <Link
-              href="/"
-              className="px-8 py-3 rounded-full bg-red-active text-white font-semibold transition-colors hover:bg-red-active-hover"
-            >
-              Back to Home
-            </Link>
-            <Link
-              href="/about"
-              className="px-8 py-3 rounded-full border border-red-active text-red-active font-semibold transition-colors hover:bg-red-active/10"
-            >
-              Learn About Us
-            </Link>
-          </motion.div>
-        </motion.div>
-      </div>
-    </section>
+    <div className="sheet-grid relative flex min-h-screen items-center justify-center px-5 py-20">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="sheet relative w-full max-w-2xl p-8 text-left sm:p-12"
+      >
+        <p className="stamp self-start">Received</p>
+        <h1 className="h-display mt-6 text-4xl text-ink sm:text-6xl">
+          Message logged.
+          <br />
+          <span className="text-ink-dim">We are on it.</span>
+        </h1>
+        <p className="mt-6 max-w-md text-base leading-7 text-ink-dim">
+          We got your message. Expect a reply within one business day — from
+          one of the two people who will actually build the work.
+        </p>
+        <div className="mt-9 flex flex-wrap gap-4">
+          <Link href="/" className="btn-ink">
+            Back home
+          </Link>
+          <Link href="/about" className="btn-line">
+            Meet the studio
+          </Link>
+        </div>
+      </motion.div>
+    </div>
   );
 }

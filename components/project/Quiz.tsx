@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeftIcon, ArrowRightIcon, Home } from "lucide-react";
 import Button from "@/components/ui/Button";
@@ -42,6 +42,7 @@ export default function Quiz() {
 		type: "success" | "error";
 		text: string;
 	} | null>(null);
+	const contentRef = useRef<HTMLDivElement>(null);
 	const router = useRouter();
 
 	const currentSection = quizSections[sectionIndex];
@@ -49,6 +50,10 @@ export default function Quiz() {
 	const progressValue = ((sectionIndex + 1) / totalSections) * 100;
 	const isFirstSection = sectionIndex === 0;
 	const isLastSection = sectionIndex === totalSections - 1;
+
+	useEffect(() => {
+		contentRef.current?.scrollTo(0, 0);
+	}, [sectionIndex]);
 
 	const canContinue = useMemo(
 		() =>
@@ -117,16 +122,17 @@ export default function Quiz() {
 	}
 
 	return (
-		<div className="mx-auto flex min-h-dvh w-full max-w-5xl self-center flex-col">
-			<div className="sticky top-0 z-20 pt-4 sm:pt-6">
-				<div className="flex items-center gap-3">
+		<div className="h-full min-h-0 w-full">
+			<div className="mx-auto flex h-full min-h-0 w-full flex-col">
+			<div className="shrink-0 border-b border-line/70 py-4 sm:py-5">
+				<div className="mx-auto flex w-full max-w-6xl items-center gap-3">
 					<Button
 						type="button"
 						variant="ghost"
 						size="sm"
 						onClick={goBack}
 						disabled={isFirstSection}
-						className="h-10 w-10 rounded-full border border-white/10 px-0"
+						className="h-11 w-11 border border-line px-0 text-ink-dim hover:bg-board-card hover:text-ink"
 					>
 						<ArrowLeftIcon className="h-4 w-4" />
 					</Button>
@@ -135,28 +141,28 @@ export default function Quiz() {
 						variant="ghost"
 						size="sm"
 						onClick={() => router.push("/")}
-						className="h-10 w-10 rounded-full border border-white/10 px-0"
+						className="h-11 w-11 border border-line px-0 text-ink-dim hover:bg-board-card hover:text-ink"
 					>
 						<Home className="h-4 w-4" />
 					</Button>
 					<div className="flex-1">
 						<div className="mb-1.5 flex items-center justify-between gap-4">
-							<span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-red-active">
+							<span className="meta-label text-red-active">
 								Section {sectionIndex + 1} of {totalSections}
 							</span>
-							<span className="text-xs text-white/60 sm:text-sm">
+							<span className="text-sm text-ink-faint sm:text-base">
 								{currentSection.section}
 							</span>
 						</div>
 						<Progress
 							value={progressValue}
-							className="h-1.5 bg-white/10 **:data-[slot=progress-indicator]:bg-red-active"
+							className="h-2 bg-board **:data-[slot=progress-indicator]:bg-red-active"
 						/>
 					</div>
 				</div>
 			</div>
 
-			<div className="flex flex-1 flex-col justify-center py-6 sm:py-8">
+			<div ref={contentRef} className="min-h-0 flex-1 overflow-y-auto overscroll-contain py-8 sm:py-10 lg:py-12">
 				<AnimatePresence mode="wait">
 					<motion.div
 						key={currentSection.id}
@@ -166,20 +172,20 @@ export default function Quiz() {
 						exit={{ opacity: 0, y: -14 }}
 						transition={{ duration: 0.2, ease: "easeOut" }}
 					>
-						<div className="mx-auto w-full max-w-3xl">
-							<div className="mb-5">
-								<p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-red-active">
-									Project Intake
+						<div className="mx-auto grid min-h-full w-full max-w-6xl grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:items-center lg:gap-20">
+							<div className="max-w-lg lg:sticky lg:top-8 lg:self-start lg:pt-8">
+								<p className="meta-label text-red-active">
+									Your brief
 								</p>
-								<h1 className="mt-2 text-2xl font-semibold text-white sm:text-[1.9rem]">
+								<h1 className="font-display mt-3 text-[clamp(2.2rem,4vw,3.6rem)] font-semibold leading-[0.96] tracking-[-0.04em] text-ink">
 									{currentSection.section}
 								</h1>
-								<p className="mt-2 max-w-2xl text-sm leading-6 text-white/68">
+								<p className="mt-4 max-w-2xl text-base leading-7 text-ink-dim">
 									{currentSection.description}
 								</p>
 							</div>
 
-							<div className="flex flex-col gap-4">
+							<div className="grid gap-4 sm:grid-cols-2">
 								{currentSection.questions.map((question) => {
 									const isVisible =
 										!question.dependsOn ||
@@ -192,15 +198,17 @@ export default function Quiz() {
 									return (
 									<div
 										key={question.id}
-										className="w-full"
+										className={`w-full rounded-2xl border border-line bg-board/40 p-5 sm:p-6 ${
+											question.type === "textarea" ? "sm:col-span-2" : ""
+										}`}
 									>
 										<label
 											htmlFor={question.id}
-											className="mb-2 block text-sm font-medium text-white"
+											className="mb-3 block text-base font-semibold text-ink"
 										>
 											{question.question}
 											{question.optional ? (
-												<span className="ml-2 text-xs font-normal text-white/45">
+												<span className="meta-label ml-2 text-ink-faint">
 													Optional
 												</span>
 											) : null}
@@ -213,7 +221,7 @@ export default function Quiz() {
 												value={answers[question.id] ?? ""}
 												onChange={(event) => updateAnswer(question.id, event.target.value)}
 												placeholder={question.placeholder}
-												className="h-10 w-full rounded-lg border border-white/12 bg-white/6 px-3 text-sm text-white outline-none transition-colors placeholder:text-white/35 focus:border-red-active"
+														className="h-12 w-full rounded-2xl border border-line bg-board px-4 text-sm text-ink outline-none transition-colors placeholder:text-ink-faint focus:border-red-active focus:bg-board-card"
 											/>
 										)}
 
@@ -224,12 +232,12 @@ export default function Quiz() {
 												onChange={(event) => updateAnswer(question.id, event.target.value)}
 												placeholder={question.placeholder}
 												rows={4}
-												className="w-full rounded-lg border border-white/12 bg-white/6 px-3 py-2.5 text-sm text-white outline-none transition-colors placeholder:text-white/35 focus:border-red-active"
+														className="w-full rounded-2xl border border-line bg-board px-4 py-3.5 text-sm leading-6 text-ink outline-none transition-colors placeholder:text-ink-faint focus:border-red-active focus:bg-board-card"
 											/>
 										)}
 
 										{question.type === "single-choice" && question.options && (
-											<div className="grid gap-2 sm:grid-cols-2">
+											<div className="grid gap-3 sm:grid-cols-2">
 												{question.options.map((option) => {
 													const isSelected = answers[question.id] === option;
 
@@ -238,11 +246,12 @@ export default function Quiz() {
 															key={option}
 															type="button"
 															onClick={() => updateAnswer(question.id, option)}
-															className={`rounded-lg border px-3 py-2.5 text-left text-sm transition-colors ${
+															className={`flex min-h-14 items-center justify-between gap-4 rounded-full border px-5 py-3 text-left text-sm font-medium transition-colors ${
 																isSelected
-																	? "border-red-active bg-red-active/10 text-white"
-																	: "border-white/12 bg-white/6 text-white/72 hover:border-white/22 hover:bg-white/8"
+																	? "border-red-active bg-red-active text-white"
+																	: "border-line bg-board text-ink-dim hover:border-line-strong hover:bg-board-card hover:text-ink"
 															}`}
+															aria-pressed={isSelected}
 														>
 															{option}
 														</button>
@@ -259,8 +268,8 @@ export default function Quiz() {
 				</AnimatePresence>
 			</div>
 
-			<div className="sticky bottom-0 z-20 pb-4 pt-3 sm:pb-6">
-				<div className="flex flex-col gap-3 border-t border-white/10 pt-4 sm:flex-row sm:items-center sm:justify-between">
+			<div className="shrink-0 border-t border-line/70 pb-5 pt-4 sm:pb-6">
+				<div className="mx-auto flex w-full max-w-6xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 					<p
 						aria-live="polite"
 						className={`text-xs sm:text-sm ${
@@ -268,7 +277,7 @@ export default function Quiz() {
 								? submitMessage.type === "success"
 									? "text-green-300"
 									: "text-red-300"
-								: "text-white/55"
+									: "text-ink-dim"
 						}`}
 					>
 						{submitMessage
@@ -280,7 +289,7 @@ export default function Quiz() {
 
 					<div className="flex flex-wrap gap-2">
 						{!isFirstSection && (
-							<Button type="button" variant="ghost" size="sm" onClick={goBack}>
+							<Button type="button" variant="ghost" size="sm" onClick={goBack} className="border border-line">
 								Back
 							</Button>
 						)}
@@ -303,6 +312,7 @@ export default function Quiz() {
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>
 	);
 }

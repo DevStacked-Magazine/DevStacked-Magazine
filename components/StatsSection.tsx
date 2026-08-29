@@ -5,10 +5,10 @@ import { useInView } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const stats = [
-  { value: 20, suffix: "+", label: "Projects Goal for Year One" },
-  { value: 98, suffix: "%", label: "Client Satisfaction Target" },
-  { value: 10, suffix: "+", label: "Technologies We Work With" },
-  { value: 24, suffix: "/7", label: "Support Available" },
+  { value: 2, suffix: "", label: "People on every project. The same two, start to finish." },
+  { value: 1, suffix: "", label: "Business day to a reply. We read everything personally." },
+  { value: 100, suffix: "%", label: "Of the code handed over. Repository, assets, docs." },
+  { value: 0, suffix: "", label: "Lock-in. No platform we hold over you." },
 ];
 
 function Counter({ to, suffix }: { to: number; suffix: string }) {
@@ -18,7 +18,7 @@ function Counter({ to, suffix }: { to: number; suffix: string }) {
 
   useEffect(() => {
     if (!inView) return;
-    const duration = 1400;
+    const duration = 1200;
     const start = performance.now();
     let raf = 0;
     const tick = (t: number) => {
@@ -41,18 +41,15 @@ function Counter({ to, suffix }: { to: number; suffix: string }) {
 
 export default function StatsSection() {
   return (
-    <section className="relative border-y border-white/8 bg-background-elevated/40 py-20">
+    <section className="border-y border-line bg-board-raised py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-12 lg:px-20">
-        <div className="grid grid-cols-2 gap-y-12 gap-x-6 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-4">
           {stats.map((s) => (
             <div key={s.label} className="flex flex-col gap-3">
-              <p className="font-display text-5xl font-bold leading-none tracking-tight text-white sm:text-6xl">
+              <p className="font-display text-5xl font-bold leading-none tracking-[-0.02em] text-ink sm:text-6xl">
                 <Counter to={s.value} suffix={s.suffix} />
               </p>
-              <div className="h-px w-8 bg-red-active" />
-              <p className="max-w-[24ch] text-sm leading-6 text-white/55">
-                {s.label}
-              </p>
+              <p className="max-w-[26ch] text-sm leading-6 text-ink-dim">{s.label}</p>
             </div>
           ))}
         </div>

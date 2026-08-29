@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useRef } from "react";
 import Image from "next/image";
@@ -6,80 +6,76 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap-presets";
 import Mascot from "@/public/images/home/heroImage.png";
 
+const facts = [
+  { label: "Founded", value: "2025" },
+  { label: "Based", value: "Vushtrri, Kosova — remote worldwide" },
+  { label: "Practice", value: "Two full-stack developers" },
+];
+
 export default function AgencyHeroSection() {
   const root = useRef<HTMLElement | null>(null);
 
   useGSAP(
     () => {
       const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
-      tl.from(".about-eyebrow", { y: 20, opacity: 0, duration: 0.9 })
-        .from(".about-line > span", {
-          yPercent: 110,
-          opacity: 0,
-          duration: 1.1,
-          stagger: 0.06,
-        }, "-=0.6")
-        .from(".about-sub", { y: 20, opacity: 0, duration: 0.9 }, "-=0.7")
-        .from(".about-pill-image", { scale: 0.4, opacity: 0, duration: 1.2, ease: "elastic.out(1, 0.6)" }, "-=0.8");
+      tl.from(".about-line > span", {
+        yPercent: 112,
+        duration: 1.1,
+        stagger: 0.07,
+      })
+        .from(".about-fade", { y: 14, opacity: 0, duration: 0.8, stagger: 0.08 }, "-=0.6")
+        .from(".about-fig", { opacity: 0, duration: 0.9 }, "-=0.5");
     },
     { scope: root }
   );
 
   return (
-    <section
-      ref={root}
-      className="relative min-h-[80vh] overflow-hidden pt-20 pb-16"
-    >
-      <div aria-hidden className="ambient-canvas" />
-
-      <div className="relative mx-auto max-w-7xl px-5 sm:px-12 lg:px-20 pt-12 lg:pt-20">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-9">
-            <p className="about-eyebrow label-mark">The studio</p>
-
-            <h1 className="mt-8 font-display text-[clamp(2.4rem,5.5vw,5.5rem)] font-bold leading-[0.95] tracking-[-0.04em] text-white">
+    <section ref={root} className="sheet-grid relative overflow-hidden pt-16 pb-16 lg:pt-24">
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-12 lg:px-20">
+        <div className="grid grid-cols-1 items-end gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-8">
+            <h1 className="h-display text-[clamp(2.5rem,5.4vw,5.2rem)] text-ink">
               <span className="about-line block overflow-hidden">
-                <span className="inline-block">We shape</span>
+                <span className="block">We shape digital</span>
               </span>
               <span className="about-line block overflow-hidden">
-                <span className="inline-flex items-center gap-3 sm:gap-5">
-                  <span className="inline-block">digital</span>
-                  <span className="about-pill-image relative inline-block h-[0.85em] w-[0.85em] sm:h-[0.8em] sm:w-[0.8em] overflow-hidden rounded-full border border-white/20 align-middle">
+                <span className="inline-flex items-center gap-4">
+                  <span className="block">products</span>
+                  <span className="about-fig relative inline-block h-[0.82em] w-[0.82em] overflow-hidden rounded-xl border border-line align-middle">
                     <Image
                       src={Mascot}
-                      alt="DevStacked mascot"
+                      alt="The DevStacked studio mascot"
                       fill
                       priority
                       sizes="120px"
                       className="object-contain"
                     />
                   </span>
-                  <span className="inline-block text-white/90">products</span>
                 </span>
               </span>
               <span className="about-line block overflow-hidden">
-                <span className="inline-block text-white/55">that work for a living.</span>
+                <span className="block text-ink-dim">that work for a living.</span>
               </span>
             </h1>
+
+            <p className="about-fade mt-8 max-w-xl text-base leading-7 text-ink-dim sm:text-lg">
+              Two developers, one drawing board. We take products from first
+              sketch to launch and stay responsible for how they run after.
+            </p>
           </div>
 
-          <div className="lg:col-span-3 flex flex-col gap-6">
-            <div className="about-sub border-t border-white/10 pt-6">
-              <p className="font-mono-meta text-white/40">Founded</p>
-              <p className="mt-2 font-display text-3xl text-white">2025</p>
-            </div>
-            <div className="about-sub border-t border-white/10 pt-6">
-              <p className="font-mono-meta text-white/40">Based</p>
-              <p className="mt-2 font-display text-2xl text-white leading-tight">
-                Vushtrri, Kosova <br /> <span className="text-white/50">Remote worldwide</span>
-              </p>
-            </div>
-            <div className="about-sub border-t border-white/10 pt-6">
-              <p className="font-mono-meta text-white/40">Practice</p>
-              <p className="mt-2 font-display text-2xl text-white leading-tight">
-                Two full-stack <br /> <span className="text-white/50">developers</span>
-              </p>
-            </div>
+          <div className="about-fade flex flex-col lg:col-span-4">
+            <dl className="border-t border-line">
+              {facts.map((f) => (
+                <div
+                  key={f.label}
+                  className="flex flex-col gap-1 border-b border-line py-5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
+                >
+                  <dt className="meta-label text-ink-faint">{f.label}</dt>
+                  <dd className="text-sm font-medium text-ink sm:text-right">{f.value}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
       </div>

@@ -9,7 +9,6 @@ import CtaSection from "@/components/CtaSection";
 export default function AboutPage() {
   return (
     <div className="relative">
-      <div aria-hidden className="ambient-canvas" />
       <AgencyHeroSection />
       <DreamToRealitySection />
       <StatsSection />

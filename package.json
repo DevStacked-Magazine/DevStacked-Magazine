@@ -9,7 +9,6 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@fontsource/ibm-plex-mono": "^5.2.7",
     "@gsap/react": "^2.1.2",
     "@react-email/render": "^2.0.4",
     "class-variance-authority": "^0.7.1",

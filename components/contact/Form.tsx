@@ -149,7 +149,7 @@ function FormFields({ initialEmail }: { initialEmail: string }) {
         )}
 
         <motion.div variants={variants.fadeInUp}>
-          <Button type="submit" className="w-full rounded-lg" variant="primary">
+          <Button type="submit" className="w-full" variant="primary">
             Send Message
           </Button>
         </motion.div>

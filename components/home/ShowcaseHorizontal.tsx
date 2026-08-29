@@ -3,37 +3,47 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap-presets";
+import Link from "next/link";
 
-const projects = [
+/**
+ * The honest showcase. DevStacked is a young studio: instead of invented
+ * case studies, this sheet annotates the one project every visitor can
+ * verify — the site they are reading.
+ */
+
+const plates = [
   {
-    name: "Brutalist Studio",
-    kind: "Editorial site",
+    name: "This website",
+    kind: "Marketing site",
     year: "2025",
-    note: "Type-first, motion-second, image-rarely.",
+    lines: [
+      ["Platform", "Next.js, statically exported"],
+      ["Interface", "Tailwind CSS v4, Radix primitives"],
+      ["Motion", "GSAP + Framer Motion, on a budget"],
+      ["Principle", "Every screen earns its place"],
+    ],
   },
   {
-    name: "Lumen & Co.",
-    kind: "E-commerce rebuild",
-    year: "2025",
-    note: "Cut checkout to three steps, lifted conversion 24%.",
+    name: "The method",
+    kind: "How a build runs",
+    year: "Ongoing",
+    lines: [
+      ["Drawn first", "Screens against real content, not mood boards"],
+      ["Built in the open", "A real URL from week one"],
+      ["Measured", "Performance budget checked per release"],
+      ["Handed over", "Repository, assets, documentation"],
+    ],
   },
   {
-    name: "Northgate Health",
-    kind: "Patient portal",
-    year: "2024",
-    note: "A11y-first redesign, Lighthouse 99 across the board.",
-  },
-  {
-    name: "Atlas Notes",
-    kind: "Product launch",
-    year: "2024",
-    note: "Static-first, edge-cached, sub-200ms TTFB worldwide.",
-  },
-  {
-    name: "Ironclad Fitness",
-    kind: "Subscription funnel",
-    year: "2024",
-    note: "Five landing variants, one positioning. It held up.",
+    name: "Your project",
+    kind: "The next project",
+    year: "Unwritten",
+    lines: [
+      ["Input", "A short brief and a deadline"],
+      ["Process", "The same discipline you are reading now"],
+      ["Output", "A site you own outright"],
+      ["First step", "The two-minute work order"],
+    ],
   },
 ];
 
@@ -63,104 +73,76 @@ export default function ShowcaseHorizontal() {
             invalidateOnRefresh: true,
           },
         });
-
-        gsap.utils.toArray<HTMLElement>(".showcase-card").forEach((card) => {
-          gsap.fromTo(
-            card,
-            { scale: 0.94, opacity: 0.4 },
-            {
-              scale: 1,
-              opacity: 1,
-              ease: "none",
-              scrollTrigger: {
-                trigger: card,
-                start: "left 85%",
-                end: "right 15%",
-                scrub: 0.6,
-              },
-            }
-          );
-        });
       });
     },
     { scope: root }
   );
 
+  const renderPlate = (p: (typeof plates)[number]) => (
+    <article
+      className="sheet flex h-[58vh] w-[80vw] max-w-[860px] shrink-0 flex-col justify-between p-8 lg:p-12"
+      key={p.name}
+    >
+      <div className="flex items-start justify-between">
+        <span className="meta-label text-ink-faint">{p.kind}</span>
+      </div>
+
+      <div>
+        <h3 className="h-display text-4xl text-ink sm:text-5xl lg:text-6xl">{p.name}</h3>
+        <dl className="mt-8 border-t border-line">
+          {p.lines.map(([k, v]) => (
+            <div
+              key={k}
+              className="flex flex-col gap-1 border-b border-line py-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-8"
+            >
+              <dt className="meta-label shrink-0 text-ink-faint">{k}</dt>
+              <dd className="text-sm leading-6 text-ink-dim sm:text-right">{v}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      <p className="meta-label text-ink-faint">{p.year}</p>
+    </article>
+  );
+
   return (
     <section
       ref={root}
-      className="relative overflow-hidden bg-background-elevated/40 border-y border-white/8"
+      className="sheet-grid relative overflow-hidden border-y border-line bg-board-raised"
     >
-      <div className="mx-auto max-w-7xl px-5 sm:px-12 lg:px-20 pt-24 pb-12">
+      <div className="mx-auto max-w-7xl px-5 pt-20 pb-10 sm:px-12 lg:px-20">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-7">
-            <p className="label-mark">Selected work</p>
-            <h2 className="mt-6 font-display text-[clamp(2.2rem,4.4vw,4rem)] font-bold leading-[0.98] tracking-[-0.035em] text-white">
-              Quiet interfaces, <br />
-              <span className="text-white/55">measured outcomes.</span>
-            </h2>
-          </div>
-          <p className="lg:col-span-5 text-base leading-7 text-white/55 lg:max-w-md">
-            A short, recent cross-section. The right place to see how we think about
-            brand, motion, and the boring details that actually move conversion.
+          <h2 className="h-display text-[clamp(2.1rem,4.2vw,3.8rem)] text-ink lg:col-span-7">
+            The proof you can check.
+          </h2>
+          <p className="text-base leading-7 text-ink-dim lg:col-span-5 lg:max-w-md">
+            We are a young studio, so we will not invent clients. This collection
+            shows the one project you can verify from where you sit: this site,
+            and the way it was built.
           </p>
         </div>
       </div>
 
-      <div className="hidden lg:block pb-24">
+      <div className="hidden pb-24 lg:block">
         <div
           ref={trackRef}
-          className="flex gap-6 pl-[max(5rem,calc((100vw-1280px)/2+5rem))] pr-20 will-change-transform"
+          className="no-scrollbar flex gap-6 pl-[max(5rem,calc((100vw-1280px)/2+5rem))] pr-20 will-change-transform"
         >
-          {projects.map((p, i) => (
-            <article
-              key={p.name}
-              className="showcase-card relative flex h-[60vh] w-[70vw] max-w-[820px] shrink-0 flex-col justify-between rounded-[1.25rem] border border-white/10 bg-background-card p-10 lg:p-12"
-            >
-              <div className="flex items-start justify-between">
-                <span className="font-mono-meta text-red-active">{p.kind}</span>
-                <span className="font-mono-meta text-white/45">
-                  {String(i + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
-                </span>
-              </div>
-              <div>
-                <h3 className="font-display text-5xl font-bold tracking-[-0.03em] text-white sm:text-6xl lg:text-7xl">
-                  {p.name}
-                </h3>
-                <div className="mt-8 flex items-end justify-between gap-6 border-t border-white/10 pt-6">
-                  <p className="max-w-md text-sm leading-7 text-white/55 sm:text-base">
-                    {p.note}
-                  </p>
-                  <p className="font-mono-meta text-white/40">{p.year}</p>
-                </div>
-              </div>
-            </article>
-          ))}
+          {plates.map(renderPlate)}
         </div>
       </div>
 
-      <div className="lg:hidden pb-24">
-        <div className="flex flex-col gap-5 px-5 sm:px-12">
-          {projects.map((p, i) => (
-            <article
-              key={p.name}
-              className="relative flex aspect-[4/3] w-full flex-col justify-between rounded-[1.25rem] border border-white/10 bg-background-card p-8"
-            >
-              <div className="flex items-start justify-between">
-                <span className="font-mono-meta text-red-active">{p.kind}</span>
-                <span className="font-mono-meta text-white/45">
-                  {String(i + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
-                </span>
-              </div>
-              <div>
-                <h3 className="font-display text-3xl font-bold tracking-[-0.03em] text-white sm:text-4xl">
-                  {p.name}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-white/55">{p.note}</p>
-              </div>
-            </article>
-          ))}
-        </div>
+      <div className="flex flex-col gap-5 px-5 pb-20 sm:px-12 lg:hidden">
+        {plates.map((p) => (
+          <div key={p.name}>{renderPlate(p)}</div>
+        ))}
+      </div>
+
+      <div className="mx-auto hidden max-w-7xl px-5 pb-16 sm:px-12 lg:block lg:px-20">
+        <Link href="/contact" className="btn-line">
+          Ask us anything on this sheet
+        </Link>
       </div>
     </section>
   );

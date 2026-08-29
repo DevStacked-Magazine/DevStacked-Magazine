@@ -2,22 +2,8 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
+import { ArrowUpRight } from "lucide-react";
 import { gsap } from "@/lib/gsap-presets";
-
-const team = [
-  {
-    name: "Laurent Maxhuni",
-    role: "Full-stack developer",
-    bio: "Laurent builds complete web products from interface to implementation, with a focus on clean UX, strong performance, and reliable end-to-end execution.",
-    tags: ["Frontend + backend", "Performance", "Product-minded"],
-  },
-  {
-    name: "Fatlum G\u00ebrxhaliu",
-    role: "Full-stack developer",
-    bio: "Fatlum builds full-stack web solutions with scalable structure, clean code, and dependable delivery across both the client and server side.",
-    tags: ["Frontend + backend", "Scalable architecture", "Clean delivery"],
-  },
-];
 
 const principles = [
   {
@@ -34,93 +20,96 @@ const principles = [
   },
 ];
 
+const team = [
+  {
+    name: "Laurent Maxhuni",
+    role: "Full-stack developer",
+    bio: "Laurent builds complete web products, from the interface down to the database. His main concern is that it works well and stays fast under real traffic.",
+    portfolio: {
+      label: "View portfolio",
+      href: "https://laurentmaxhuni.vercel.app/",
+    },
+    tags: ["Frontend + backend", "Performance", "Product-minded"],
+  },
+  {
+    name: "Fatlum G\u00ebrxhaliu",
+    role: "Full-stack developer",
+    bio: "Fatlum builds web apps with structure that can scale. He works across client and server and leaves behind a codebase the next developer can pick up.",
+    portfolio: {
+      label: "View work",
+      href: "https://github.com/FatlumG",
+    },
+    tags: ["Frontend + backend", "Scalable architecture", "Clean delivery"],
+  },
+];
+
 export default function DreamToRealitySection() {
   const root = useRef<HTMLElement | null>(null);
 
   useGSAP(
     () => {
-      gsap.utils.toArray<HTMLElement>(".dtr-card").forEach((card, i) => {
-        gsap.from(card, {
-          opacity: 0,
-          y: 50,
-          duration: 1,
-          ease: "expo.out",
-          delay: i * 0.05,
-          scrollTrigger: { trigger: card, start: "top 85%" },
-        });
+      gsap.from(".about-h2", {
+        opacity: 0,
+        y: 24,
+        duration: 0.9,
+        ease: "expo.out",
+        scrollTrigger: { trigger: ".about-h2", start: "top 85%" },
       });
     },
     { scope: root }
   );
 
   return (
-    <section ref={root} className="relative section-pad overflow-hidden">
+    <section ref={root} className="relative section-pad">
       <div className="mx-auto max-w-7xl px-5 sm:px-12 lg:px-20">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-7">
-            <p className="label-mark">From idea to launch</p>
-            <h2 className="mt-6 font-display text-[clamp(2.2rem,4.4vw,4rem)] font-bold leading-[0.98] tracking-[-0.035em] text-white">
-              Two developers, <br />
-              <span className="text-red-active">one mission.</span>
-            </h2>
-          </div>
-          <p className="lg:col-span-5 text-base leading-7 text-white/55 lg:max-w-md">
-            We build modern digital products from concept to launch, with the
-            same focus on clean execution, performance, and long-term reliability.
-          </p>
-        </div>
+        <h2 className="about-h2 h-display max-w-3xl text-[clamp(2.1rem,4.2vw,3.8rem)] text-ink">
+          Two developers, one standard:{" "}
+          <span className="text-ink-dim">if it ships, it holds up.</span>
+        </h2>
 
-        <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-5">
-          {principles.map((p, i) => (
-            <article
-              key={p.title}
-              className="dtr-card editorial-card p-7 lg:p-8 flex flex-col"
-            >
-              <span className="font-mono-meta text-red-active">
-                Principle {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3 className="mt-6 font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">
-                {p.title}
-              </h3>
-              <p className="mt-3 text-sm leading-7 text-white/60 sm:text-base">
-                {p.body}
-              </p>
-              <div className="mt-8 h-px w-12 bg-white/15" />
+        {/* Principles as a ruled spec list */}
+        <div className="mt-14">
+          {principles.map((p) => (
+            <article key={p.title} className="spec-row px-1 py-7 sm:px-4 lg:px-6">
+              <div className="grid grid-cols-1 items-start gap-y-4 lg:grid-cols-[14rem_1fr] lg:items-baseline">
+                <h3 className="font-display text-xl font-bold tracking-[-0.01em] text-ink sm:text-2xl">
+                  {p.title}
+                </h3>
+                <p className="max-w-2xl text-sm leading-7 text-ink-dim">
+                  {p.body}
+                </p>
+              </div>
             </article>
           ))}
         </div>
 
+        {/* Personnel schedule */}
         <div className="mt-24">
-          <p className="label-mark">The people</p>
-          <h3 className="mt-6 font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Meet the studio.
+          <h3 className="font-display text-3xl font-bold tracking-[-0.02em] text-ink sm:text-4xl">
+            The people on your project.
           </h3>
 
           <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
-            {team.map((m, i) => (
-              <article
-                key={m.name}
-                className="dtr-card editorial-card p-8 lg:p-10 flex flex-col"
-              >
-                <div className="flex items-baseline justify-between">
-                  <span className="font-mono-meta text-red-active">
-                    {String(i + 1).padStart(2, "0")} / {String(team.length).padStart(2, "0")}
-                  </span>
-                  <span className="font-mono-meta text-white/35">Studio</span>
-                </div>
-                <h4 className="mt-8 font-display text-3xl font-bold tracking-[-0.03em] text-white sm:text-4xl">
+            {team.map((m) => (
+              <article key={m.name} className="sheet relative flex flex-col p-8 lg:p-10">
+                <h4 className="font-display text-3xl font-bold tracking-[-0.02em] text-ink sm:text-4xl">
                   {m.name}
                 </h4>
-                <p className="mt-2 font-mono-meta text-white/45">{m.role}</p>
-                <p className="mt-6 text-base leading-7 text-white/65">
-                  {m.bio}
-                </p>
-                <ul className="mt-8 flex flex-wrap gap-2 border-t border-white/10 pt-6">
+                <p className="meta-label mt-3 text-ink-dim">{m.role}</p>
+                <p className="mt-6 text-base leading-7 text-ink-dim">{m.bio}</p>
+                <a
+                  href={m.portfolio.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-7 inline-flex w-fit items-center gap-2 rounded-full border border-line-strong px-4 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-red-active hover:bg-red-active hover:text-white"
+                  aria-label={`${m.name}: ${m.portfolio.label}`}
+                >
+                  {m.portfolio.label}
+                  <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                </a>
+                <ul className="mt-7 flex flex-wrap gap-2 border-t border-line pt-6">
                   {m.tags.map((t) => (
-                    <li
-                      key={t}
-                      className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white/70"
-                    >
+                    <li key={t} className="chip">
                       {t}
                     </li>
                   ))}

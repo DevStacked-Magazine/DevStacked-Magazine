@@ -5,7 +5,7 @@ import ServicesBento from "@/components/home/ServicesBento";
 import TrustedMarquee from "@/components/home/TrustedMarquee";
 import PinnedJourney from "@/components/home/PinnedJourney";
 import ShowcaseHorizontal from "@/components/home/ShowcaseHorizontal";
-import TestimonialCarousel from "@/components/home/TestimonialCarousel";
+import WorkingNotes from "@/components/home/WorkingNotes";
 import StatsSection from "@/components/StatsSection";
 import CtaSection from "@/components/CtaSection";
 import FaqSection from "@/components/home/FaqSection";
@@ -13,14 +13,14 @@ import FaqSection from "@/components/home/FaqSection";
 export const metadata: Metadata = {
   title: "Web Design, Development, and Tech Content",
   description:
-    "Explore DevStacked Magazine for modern website design, development support, landing page work, and practical tech content shaped by real projects.",
+    "Websites, landing pages, and tech content from a two-person studio. Fast builds, honest timelines, and code you own.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
     title: "DevStacked Magazine | Web Design, Development, and Tech Content",
     description:
-      "Modern websites, product-facing experiences, and practical tech content from a team focused on speed, clarity, and usability.",
+      "Websites and practical tech content from a two-person studio. Fast builds, honest timelines, and code you own.",
     url: siteConfig.url,
     images: [
       {
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "DevStacked Magazine | Web Design, Development, and Tech Content",
     description:
-      "Modern websites, product-facing experiences, and practical tech content from a team focused on speed, clarity, and usability.",
+      "Websites and practical tech content from a two-person studio. Fast builds, honest timelines, and code you own.",
     images: [siteConfig.ogImage],
   },
 };
@@ -48,21 +48,19 @@ const homePageJsonLd = {
   image: absoluteUrl(siteConfig.ogImage),
   email: siteConfig.email,
   description:
-    "Design and development studio creating fast websites, landing pages, and digital experiences for brands, founders, and product teams.",
+    "A two-person design and development studio building fast websites and landing pages for founders and small teams.",
 };
 
 export default function Home() {
   return (
     <div className="relative">
-      <div aria-hidden className="ambient-canvas" />
-
       <HeroSection />
       <TrustedMarquee />
       <ServicesBento />
       <ShowcaseHorizontal />
       <StatsSection />
       <PinnedJourney />
-      <TestimonialCarousel />
+      <WorkingNotes />
       <CtaSection />
       <FaqSection />
 

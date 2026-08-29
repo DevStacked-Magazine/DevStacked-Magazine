@@ -1,34 +1,33 @@
 "use client";
-import Image from "next/image";
-import Button from "@/components/ui/Button";
+import Link from "next/link";
 
 function NotFound() {
-  const goBack = () => {
-    window.history.back();
-  };
-
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-4xl flex-col items-center justify-center gap-6 text-center relative">
-      <div className="absolute inset-0 -z-10 flex items-center justify-center">
-        <div className="h-96 w-96 rounded-full bg-red-500/50 blur-3xl opacity-30"></div>
+    <div className="sheet-grid relative flex min-h-screen w-full items-center justify-center px-5">
+      <div className="sheet relative w-full max-w-2xl p-8 sm:p-12">
+        <p className="meta-label text-red-active">Error 404</p>
+        <h1 className="h-display mt-5 text-4xl text-ink sm:text-6xl">
+          Page missing
+          <br />
+          <span className="text-ink-dim">from this site.</span>
+        </h1>
+        <p className="mt-6 max-w-md text-base leading-7 text-ink-dim">
+          The page you asked for is not here. It may have moved, or the address
+          was mistyped.
+        </p>
+        <div className="mt-9 flex flex-wrap gap-4">
+          <Link href="/" className="btn-ink">
+            Back home
+          </Link>
+          <button
+            type="button"
+            onClick={() => window.history.back()}
+            className="btn-line"
+          >
+            Go back
+          </button>
+        </div>
       </div>
-      <div className="relative w-full max-w-[220px] sm:max-w-[280px] lg:max-w-[340px] aspect-[2/3]">
-        <Image
-          src="/icons/404.png"
-          alt="404"
-          fill
-          priority
-          sizes="(max-width: 640px) 220px, (max-width: 1024px) 280px, 340px"
-          className="rounded-2xl object-contain"
-        />
-      </div>
-      <h1 className="text-2xl font-bold text-white">Page Not Found</h1>
-      <p className="text-gray-300">
-        Sorry, the page you are looking for does not exist.
-      </p>
-      <Button variant="primary" className="mt-6" onClick={goBack}>
-        Go Back
-      </Button>
     </div>
   );
 }

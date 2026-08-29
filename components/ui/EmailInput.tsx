@@ -44,7 +44,7 @@ export default function Page({ className }: { className: string }) {
           className="w-full bg-transparent px-4 py-2 text-white focus:outline-none"
         />
         <Button
-          className="rounded-3xl! py-2 px-4!"
+          className="py-2 px-4!"
           href="/contact"
           onClick={handleNavigation}
         >
